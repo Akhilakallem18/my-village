@@ -1,14 +1,7 @@
-function Home() {
-  return (
-    <main>
-      <h1>🏡 Welcome to Bahadhurkhanpet</h1>
+import Hero from "../../components/Hero/Hero";
 
-      <p>
-        Discover the beauty, culture, traditions, and history of
-        Bahadhurkhanpet village.
-      </p>
-    </main>
-  );
+function Home() {
+  return <Hero />;
 }
 
 export default Home;
