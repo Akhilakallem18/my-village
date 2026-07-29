@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "corsheaders",
 
     "apps.village",
+    "apps.places",
 ]
 
 
