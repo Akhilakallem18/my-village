@@ -6,4 +6,9 @@ urlpatterns = [
 
     path("api/village/", include("apps.village.urls")),
     path("api/places/", include("apps.places.urls")),
+    path("api/gallery/", include("apps.gallery.urls")),
+    path(
+    "api/events/",
+    include("apps.events.urls")
+),
 ]

@@ -23,6 +23,8 @@ INSTALLED_APPS = [
 
     "apps.village",
     "apps.places",
+    "apps.gallery",
+    "apps.events",
 ]
 
 

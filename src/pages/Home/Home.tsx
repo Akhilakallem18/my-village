@@ -4,15 +4,19 @@ import StatsSection from "../../components/StatsSection/StatsSection";
 import PlacesSection from "../../components/PlacesSection/PlacesSection";
 import GallerySection from "../../components/GallerySection/GallerySection";
 import Footer from "../../components/Footer/Footer";
+import VillageInfo from "../../components/VillageInfo/VillageInfo";
+import EventsSection from "../../components/EventsSection/EventsSection";
 
 function Home() {
   return (
     <>
       <Hero />
+      <VillageInfo />
       <AboutSection />
       <StatsSection />
       <PlacesSection />
       <GallerySection />
+      <EventsSection />
       <Footer />
     </>
   );

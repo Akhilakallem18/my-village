@@ -1,45 +1,54 @@
+import { useEffect, useState } from "react";
 import "./PlacesSection.css";
+import { getPlaces } from "../../services/api";
 
-const places = [
-  {
-    image: "https://placehold.co/400x300?text=Ramula+Gutta",
-    title: "Ramula Gutta",
-    description:
-      "A beautiful Lord Rama temple situated on a mountain. It is a peaceful spiritual place with amazing views of the village."
-  },
-  {
-    image: "https://placehold.co/400x300?text=Hanuman+Temple",
-    title: "Hanuman Temple",
-    description:
-      "A sacred place where villagers gather for prayers and celebrations during festivals."
-  },
-  {
-    image: "https://placehold.co/400x300?text=Cheruvu",
-    title: "Village Cheruvu",
-    description:
-      "A beautiful lake surrounded by nature, known for its lotus flowers and peaceful atmosphere."
-  },
-  {
-    image: "https://placehold.co/400x300?text=Pochamma+Temple",
-    title: "Pochamma Temple",
-    description:
-      "An important traditional temple that represents the village's culture and beliefs."
-  },
-  {
-    image: "https://placehold.co/400x300?text=Paddy+Fields",
-    title: "Green Paddy Fields",
-    description:
-      "The beautiful agricultural lands where farmers grow paddy and other crops."
-  },
-  {
-    image: "https://placehold.co/400x300?text=Mango+Farms",
-    title: "Mango Farms",
-    description:
-      "Refreshing mango farms that add natural beauty to the village landscape."
-  }
-];
+import type { Place } from "../../types/village";
 
 function PlacesSection() {
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadPlaces() {
+      try {
+        const data = await getPlaces();
+
+        console.log("Places API Response:", data);
+
+        setPlaces(data);
+
+      } catch (error) {
+
+        console.error("Failed to load places:", error);
+
+        setError("Unable to load places");
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    }
+
+    loadPlaces();
+  }, []);
+
+
+  // ADD THESE HERE
+  if (loading) {
+    return <h3>Loading places...</h3>;
+  }
+
+  if (error) {
+    return <h3>{error}</h3>;
+  }
+
+  if (places.length === 0) {
+    return <h3>No places available</h3>;
+  }
+
+
   return (
     <section className="places-section">
 
@@ -48,17 +57,32 @@ function PlacesSection() {
       <div className="places-grid">
 
         {places.map((place) => (
-          <div className="place-card" key={place.title}>
+          <div className="place-card" key={place.id}>
 
             <img
-              src={place.image}
-              alt={place.title}
+              src={
+                place.image ||
+                "https://placehold.co/400x300?text=No+Image"
+              }
+              alt={place.name}
             />
 
             <div className="place-content">
-              <h3>{place.title}</h3>
+
+              <h3>{place.name}</h3>
 
               <p>{place.description}</p>
+
+              <small>
+                <strong>Category:</strong> {place.category}
+              </small>
+
+              <br />
+
+              <small>
+                <strong>Location:</strong> {place.location}
+              </small>
+
             </div>
 
           </div>
@@ -69,5 +93,4 @@ function PlacesSection() {
     </section>
   );
 }
-
 export default PlacesSection;
