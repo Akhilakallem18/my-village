@@ -44,10 +44,12 @@ export function getGallery() {
   );
 
 }
-export function getEvents() {
+export async function getEvents() {
+  const response = await fetch(`${BASE_URL}/events/`);
 
-  return apiRequest(
-    `${BASE_URL}/events/`
-  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch events");
+  }
 
+  return response.json();
 }
